@@ -1,6 +1,8 @@
+const MarkerList = require('./markerList');
 class Sockets {
     constructor(io) {
         this.io = io;
+        this.markerList = new MarkerList();
         this.socketsEvents();
     }
 
@@ -9,10 +11,11 @@ class Sockets {
         this.io.on('connection', (socket) => {
             console.log('Client connected!', socket.id);
 
-            socket.on('message-to-server', (data) => {
-                console.log(data);
-                this.io.emit('message-from-server', data);
-            });
+            // TODO: active-markers
+
+            // TODO: new-marker
+
+            // TODO: updated-marker
         });
     }
 }
