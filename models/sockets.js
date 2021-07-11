@@ -11,9 +11,12 @@ class Sockets {
         this.io.on('connection', (socket) => {
             console.log('Client connected!', socket.id);
 
-            // TODO: active-markers
+            socket.emit('active-markers', this.markerList.actives);
 
-            // TODO: new-marker
+            socket.on('new-marker', (marker) => {
+                this.markerList.addMarker(marker);
+                socket.broadcast.emit('new-marker', marker);
+            });
 
             // TODO: updated-marker
         });
