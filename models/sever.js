@@ -9,6 +9,10 @@ const http = require('http');
 const socketIo = require('socket.io');
 const Sockets = require('./sockets');
 
+const frontendUrl =
+    process.env.NODE_ENV === 'production'
+        ? process.env.FRONTEND_PRODUCTION_URL
+        : process.env.FRONTEND_DEVELOPMENT_URL;
 class Server {
     constructor() {
         this.port = process.env.PORT;
@@ -16,7 +20,7 @@ class Server {
         this.server = http.createServer(this.app);
         this.io = socketIo(this.server, {
             cors: {
-                origin: 'http://localhost:3000',
+                origin: frontendUrl,
                 methods: ['GET', 'POST'],
                 credentials: true,
             },
